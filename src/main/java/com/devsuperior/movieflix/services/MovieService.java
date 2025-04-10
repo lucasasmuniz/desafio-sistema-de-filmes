@@ -11,10 +11,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.movieflix.dtos.GenreDTO;
 import com.devsuperior.movieflix.dtos.MovieDTO;
+import com.devsuperior.movieflix.dtos.MovieLargeDTO;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.projections.MovieProjection;
 import com.devsuperior.movieflix.repositories.MovieRepository;
+import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 import com.devsuperior.movieflix.utils.Utils;
 
 @Service
@@ -45,6 +48,15 @@ public class MovieService {
 		Page<MovieDTO> resultOrdered = new PageImpl<>(dtos, page.getPageable(), page.getTotalElements()); 
 		
 		return resultOrdered;
+	}
+
+	@Transactional(readOnly = true)
+	public MovieLargeDTO findById(Long id) {
+		Movie movie = repository.searchById(id);
+		if(movie == null) {
+			throw new ResourceNotFoundException("Entity not found");
+		}
+		return new MovieLargeDTO(movie, new GenreDTO(movie.getGenre()));
 	}
 
 }

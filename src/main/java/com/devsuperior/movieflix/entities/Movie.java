@@ -1,8 +1,9 @@
 package com.devsuperior.movieflix.entities;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +36,7 @@ public class Movie {
 	private Genre genre;
 	
 	@OneToMany(mappedBy = "movie")
-	private List<Review> reviews = new ArrayList<>();
+	private Set<Review> reviews = new HashSet<>();
 
 	public Movie() {
 	}
@@ -105,11 +106,11 @@ public class Movie {
 		this.genre = genre;
 	}
 
-	public List<Review> getReviews() {
+	public Set<Review> getReviews() {
 		return reviews;
 	}
 
-	public void setReviews(List<Review> reviews) {
+	public void setReviews(Set<Review> reviews) {
 		this.reviews = reviews;
 	}
 

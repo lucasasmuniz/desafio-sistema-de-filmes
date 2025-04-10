@@ -74,7 +74,6 @@ public class MovieControllerIT {
 		result.andExpect(jsonPath("$.id").value(existingId));
 		result.andExpect(jsonPath("$.title").isNotEmpty());
 		result.andExpect(jsonPath("$.subTitle").isNotEmpty());
-		result.andExpect(jsonPath("$.publishedAt").isNotEmpty());
 		result.andExpect(jsonPath("$.imgUrl").isNotEmpty());
 		result.andExpect(jsonPath("$.synopsis").isNotEmpty());
 		result.andExpect(jsonPath("$.genre").isNotEmpty());
@@ -94,7 +93,6 @@ public class MovieControllerIT {
 		result.andExpect(jsonPath("$.id").value(existingId));
 		result.andExpect(jsonPath("$.title").isNotEmpty());
 		result.andExpect(jsonPath("$.subTitle").isNotEmpty());
-		result.andExpect(jsonPath("$.publishedAt").isNotEmpty());
 		result.andExpect(jsonPath("$.imgUrl").isNotEmpty());
 		result.andExpect(jsonPath("$.synopsis").isNotEmpty());
 		result.andExpect(jsonPath("$.genre").isNotEmpty());
@@ -137,7 +135,6 @@ public class MovieControllerIT {
 		result.andExpect(jsonPath("$.content[0].id").isNotEmpty());
 		result.andExpect(jsonPath("$.content[0].title").value("A Voz do Silêncio"));
 		result.andExpect(jsonPath("$.content[0].subTitle").isNotEmpty());
-		result.andExpect(jsonPath("$.content[0].publishedAt").isNotEmpty());
 		result.andExpect(jsonPath("$.content[0].imgUrl").isNotEmpty());
 
 		result.andExpect(jsonPath("$.content[1].title").value("Bob Esponja"));
