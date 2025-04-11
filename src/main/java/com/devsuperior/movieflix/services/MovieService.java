@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dtos.GenreDTO;
 import com.devsuperior.movieflix.dtos.MovieDTO;
-import com.devsuperior.movieflix.dtos.MovieLargeDTO;
+import com.devsuperior.movieflix.dtos.MovieDetailsDTO;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.projections.MovieProjection;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 import com.devsuperior.movieflix.utils.Utils;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class MovieService {
@@ -51,12 +53,21 @@ public class MovieService {
 	}
 
 	@Transactional(readOnly = true)
-	public MovieLargeDTO findById(Long id) {
+	public MovieDetailsDTO findById(Long id) {
 		Movie movie = repository.searchById(id);
 		if(movie == null) {
 			throw new ResourceNotFoundException("Entity not found");
 		}
-		return new MovieLargeDTO(movie, new GenreDTO(movie.getGenre()));
+		return new MovieDetailsDTO(movie, new GenreDTO(movie.getGenre()));
 	}
-
+	
+	public Movie getExistingReferenceById(Long id) {
+		try {
+		    Movie movie = repository.getReferenceById(id);
+		    movie.getTitle();
+		    return movie;
+		} catch (EntityNotFoundException e){
+			throw new ResourceNotFoundException("Entity not found");
+		}
+	}
 }

@@ -2,7 +2,7 @@ package com.devsuperior.movieflix.dtos;
 
 import com.devsuperior.movieflix.entities.Movie;
 
-public class MovieLargeDTO {
+public class MovieDetailsDTO {
 	private Long id;
 	private String title;
 	private String subTitle;
@@ -11,10 +11,10 @@ public class MovieLargeDTO {
 	private String synopsis;
 	private GenreDTO genre;
 	
-	public MovieLargeDTO() {
+	public MovieDetailsDTO() {
 	}
 	
-	public MovieLargeDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, GenreDTO genre) {
+	public MovieDetailsDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, GenreDTO genre) {
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
@@ -24,7 +24,7 @@ public class MovieLargeDTO {
 		this.genre = genre;
 	}
 	
-	public MovieLargeDTO(Movie movie, GenreDTO genre) {
+	public MovieDetailsDTO(Movie movie, GenreDTO genre) {
 		this.id = movie.getId();
 		this.title = movie.getTitle();
 		this.subTitle = movie.getSubTitle();

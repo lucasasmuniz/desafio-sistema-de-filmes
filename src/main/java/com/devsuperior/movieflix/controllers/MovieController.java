@@ -1,5 +1,7 @@
 package com.devsuperior.movieflix.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.movieflix.dtos.MovieDTO;
-import com.devsuperior.movieflix.dtos.MovieLargeDTO;
+import com.devsuperior.movieflix.dtos.MovieDetailsDTO;
+import com.devsuperior.movieflix.dtos.ReviewDetailsDTO;
 import com.devsuperior.movieflix.services.MovieService;
+import com.devsuperior.movieflix.services.ReviewService;
 
 @RestController
 @RequestMapping("/movies")
@@ -21,6 +25,9 @@ public class MovieController {
 	
 	@Autowired
 	private MovieService service;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@PreAuthorize("hasAnyRole('ROLE_VISITOR','ROLE_MEMBER')")
 	@GetMapping
@@ -30,7 +37,13 @@ public class MovieController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_VISITOR','ROLE_MEMBER')")
 	@GetMapping("/{id}")
-	public ResponseEntity<MovieLargeDTO> findById(@PathVariable Long id){
+	public ResponseEntity<MovieDetailsDTO> findById(@PathVariable Long id){
 		return ResponseEntity.ok(service.findById(id));
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_VISITOR','ROLE_MEMBER')")
+	@GetMapping("/{id}/reviews")
+	public ResponseEntity<List<ReviewDetailsDTO>> findFilmReviews(@PathVariable Long id){
+		return ResponseEntity.ok(reviewService.findFilmReviews(id));
 	}
 }
